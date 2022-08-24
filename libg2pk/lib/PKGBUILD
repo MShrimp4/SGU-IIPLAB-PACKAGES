@@ -1,0 +1,28 @@
+# Maintainer: Yongha Hwang <mshrimp@sogang.ac.kr>
+
+pkgname=libg2pk-dev
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="C++ implementation of G2Pk"
+arch=(i686 x86_64)
+url=
+license=()
+groups=()
+depends=(libhangul mecab-ko)
+makedepends=(git)
+provides=(${pkgname}=${pkgver})
+conflicts=()
+source=($pkgname::git+https://github.com/MShrimp4/libg2pk.git)
+sha256sums=('SKIP')
+
+build() {
+    cd libg2pk-dev/lib
+    CXX="g++ -std=c++17" cmake .
+    make
+}
+
+package() {
+    cd libg2pk-dev/lib
+    make DESTDIR="$pkgdir/" install
+}
+

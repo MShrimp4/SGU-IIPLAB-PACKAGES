@@ -1,0 +1,28 @@
+# Maintainer: Yongha Hwang <mshrimp@sogang.ac.kr>
+
+pkgname=fastspeech2-ko-dev
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Kor-FastSpeech w/ c++"
+arch=(i686 x86_64)
+url=
+license=()
+groups=()
+depends=(libg2pk-dev libtorch-dev)
+makedepends=(git)
+provides=(${pkgname}=${pkgver})
+conflicts=()
+source=($pkgname::git+https://github.com/MShrimp4/Korean-FastSpeech2-Pytorch-C-.git)
+sha256sums=('SKIP')
+
+build() {
+    cd $pkgname/lib
+    CXX="g++ -std=c++17" cmake -DCMAKE_PREFIX_PATH=/home/asdf/libtorch .
+    make
+}
+
+package() {
+    cd $pkgname/lib
+    make DESTDIR="$pkgdir/" install
+}
+

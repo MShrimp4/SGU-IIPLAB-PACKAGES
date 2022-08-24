@@ -1,0 +1,25 @@
+# Maintainer: Yongha Hwang <mshrimp@sogang.ac.kr>
+
+pkgname=libtorch-libs
+pkgver=1.12.1
+pkgrel=1
+pkgdesc="libs"
+arch=(i686 x86_64)
+url=https://bitbucket.org/eunjeon/${pkgname}/src/master/
+license=()
+depends=()
+makedepends=()
+provides=(${pkgname}=${pkgver/_/-})
+conflicts=()
+source=(https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.12.1%2Bcpu.zip)
+sha256sums=(SKIP)
+
+build() {
+    cd libtorch
+}
+
+package() {
+    mkdir -p ${pkgdir}/usr/local/lib
+    install -m 755 libtorch/lib/* ${pkgdir}/usr/local/lib/
+}
+
